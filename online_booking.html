@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Ordering System</title>
+    <style>
+        body {
+         background-image: url('https://cdnimg.webstaurantstore.com/images/articles/533/article_online-ordering_main.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Welcome to the Food Ordering System!</h1>
+<button onclick="chooseFoodDeliveryApp()">Choose Food Delivery App</button>
+
+<script>
+    function chooseFoodDeliveryApp() {
+        const foodDeliveryApps = ["Zomato", "Swiggy", "Uber Eats", "Foodpanda"];
+        let userChoice = prompt("Choose a food delivery app:\n" + foodDeliveryApps.join("\n"));
+        userChoice = userChoice.trim();
+
+        if (foodDeliveryApps.includes(userChoice)) {
+            alert("You have chosen " + userChoice + " for food delivery. Enjoy your meal!");
+            searchFood();
+        } else {
+            alert("Invalid choice. Please choose a valid food delivery app.");
+            chooseFoodDeliveryApp();
+        }
+    }
+
+    function searchFood() {
+        const searchQuery = prompt("Enter the food you want to order:");
+        // You can send the searchQuery to the server and get matching food items
+        // For simplicity, let's assume you already have matchingFoodItems
+
+        const matchingFoodItems = [
+            { name: "Paneer Tikka", rating: 4.5, preparationTime: 20 },
+            { name: "Veg Biryani", rating: 4.0, preparationTime: 25 },
+            // Add more food items as needed
+        ];
+
+        if (matchingFoodItems.length > 0) {
+            alert("Matching food items:\n" + matchingFoodItems.map((item, index) =>
+                `${index + 1}. ${item.name} (Rating: ${item.rating})`
+            ).join("\n"));
+
+            const selectedIndex = prompt("Enter the number of your choice:");
+            const selectedFood = matchingFoodItems[selectedIndex - 1];
+
+            alert(`You have selected ${selectedFood.name} (Rating: ${selectedFood.rating}).`);
+            displayPreparationTime(selectedFood);
+        } else {
+            alert("No matching food items found. Please try again.");
+        }
+    }
+
+    function displayPreparationTime(selectedFood) {
+        alert(`Preparation time for ${selectedFood.name}: ${selectedFood.preparationTime} minutes.`);
+        const applyDiscount = confirm("Do you want to apply a discount?");
+        if (applyDiscount) {
+            const totalCost = 100;  // Example total cost
+            const discountedTotal = applyDiscountFunction(totalCost);
+            alert(`Total cost after discount: $${discountedTotal}`);
+            displayDeliveryContact(discountedTotal);
+        } else {
+            const totalCost = 100;  // Example total cost
+            displayDeliveryContact(totalCost);
+        }
+    }
+
+    function applyDiscountFunction(total) {
+        const discountPercentage = 0.10;  // Example discount percentage
+        const discountedTotal = total - (total * discountPercentage);
+        return discountedTotal;
+    }
+
+    function displayDeliveryContact(totalCost) {
+        const shippingCharges = calculateShippingCharges(totalCost);
+        const contactInfo = `Contact us at: 123-456-7890\nShipping Charges: $${shippingCharges}`;
+        alert(contactInfo);
+    }
+
+    function calculateShippingCharges(totalCost) {
+        // Example: Apply shipping charges if total cost is less than $150
+        return totalCost < 150 ? 10 : 0;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Review</title>
+</head>
+<body>
+    <h1>Submit Review</h1>
+    
+    <form action="{{ url_for('submit_review') }}" method="post">
+        <label for="food_item">Select Food Item:</label>
+        <select id="food_item" name="food_item">
+            {% for item in menu_items %}
+                <option value="{{ item.name }}">{{ item.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="rating">Rating (1-5 stars):</label>
+        <input type="number" name="rating" min="1" max="5" required>
+        
+        <label for="comments">Comments:</label>
+        <textarea name="comments" rows="4" required></textarea>
+        
+        <button type="submit">Submit Review</button>
+    </form>
+</body>
+</html>

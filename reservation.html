@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation System</title>
+    <style>
+        body {
+            background-image: url('https://th.bing.com/th?id=OIF.SU5Y%2bLQR0z5aBsHQX8QtfA&rs=1&pid=ImgDetMain');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+    </style>
+</head>
+<body>
+
+<h1>Reservation System</h1>
+
+<form id="reservationForm">
+    <label for="date">Date:</label>
+    <input type="text" id="date" placeholder="Enter the date">
+
+    <label for="occasion">Occasion:</label>
+    <input type="text" id="occasion" placeholder="Enter the occasion">
+
+    <label for="theme">Theme:</label>
+    <input type="text" id="theme" placeholder="Enter the theme">
+
+    <label for="hallType">Hall Type:</label>
+    <select id="hallType">
+        <option value="1">Party Hall</option>
+        <option value="2">Dining Hall</option>
+        <option value="3">Banquet Halls</option>
+        <option value="4">Private Dining Rooms</option>
+        <option value="5">Terraces or Outdoor Spaces</option>
+        <option value="6">Meeting Rooms</option>
+        <option value="7">VIP Sections</option>
+    </select>
+
+    <label for="games">Games (comma-separated):</label>
+    <input type="text" id="games" placeholder="Enter games">
+
+    <label for="numberOfPeople">Number of People:</label>
+    <input type="number" id="numberOfPeople" placeholder="Enter the number of people">
+
+    <label for="paymentMode">Payment Mode:</label>
+    <select id="paymentMode">
+        <option value="Credit Card">Credit Card</option>
+        <option value="Debit Card">Debit Card</option>
+        <option value="Cheque">Cheque</option>
+        <option value="UPI">UPI</option>
+        <option value="Cash">Cash</option>
+        <option value="Bank Transfer">Bank Transfer</option>
+    </select>
+
+    <button type="button" onclick="submitReservation()">Submit Reservation</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+    function submitReservation() {
+        const date = document.getElementById('date').value;
+        const occasion = document.getElementById('occasion').value;
+        const theme = document.getElementById('theme').value;
+        const hallType = document.getElementById('hallType').value;
+        const games = document.getElementById('games').value;
+        const numberOfPeople = document.getElementById('numberOfPeople').value;
+        const paymentMode = document.getElementById('paymentMode').value;
+
+        // Create an object to hold reservation details
+        const reservation = {
+            date,
+            occasion,
+            theme,
+            hallType,
+            games: games.split(','),
+            numberOfPeople,
+            paymentMode
+        };
+
+        // Display the result
+        displayResult(reservation);
+    }
+
+    function displayResult(reservation) {
+        const resultDiv = document.getElementById('result');
+        const cost = calculateTotalCost(reservation.numberOfPeople);
+        resultDiv.innerHTML = `
+            <p>Date: ${reservation.date}</p>
+            <p>Occasion: ${reservation.occasion}</p>
+            <p>Theme: ${reservation.theme}</p>
+            <p>Hall Type: ${reservation.hallType}</p>
+            <p>Games: ${reservation.games.join(', ')}</p>
+            <p>Number of People: ${reservation.numberOfPeople}</p>
+            <p>Total Cost: $${cost}</p>
+            <p>Payment Mode: ${reservation.paymentMode}</p>
+        `;
+    }
+
+    function calculateTotalCost(numberOfPeople) {
+        // Customize your logic to calculate the total cost based on the number of people
+        const baseCost = 500;
+        const peopleCost = numberOfPeople * 10;
+        return baseCost + peopleCost;
+    }
+</script>
+
+</body>
+</html>

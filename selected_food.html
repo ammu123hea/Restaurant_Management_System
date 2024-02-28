@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Choice Form</title>
+</head>
+<body>
+    <h1>User Choice Form</h1>
+    
+    <form id="userChoiceForm">
+        <label for="options">Choose an option:</label>
+        <select id="options" name="options">
+            <!-- Options will be dynamically populated using JavaScript -->
+        </select>
+
+        <button type="button" onclick="getUserChoice()">Submit</button>
+    </form>
+
+    <script>
+        function getUserChoice() {
+            // Get user input and send it to the server or perform other actions
+            var selectedOption = document.getElementById("options").value;
+            alert("User selected option: " + selectedOption);
+
+            // You can send the selected option to the server using AJAX if needed
+            // Example: fetch('/api/user_choice', { method: 'POST', body: selectedOption });
+        }
+
+        // Your JavaScript code for populating the options dynamically
+        document.addEventListener('DOMContentLoaded', function () {
+            // Replace this array with your actual options
+            var options = ["Veg_Biriyani", "Chicken Tikka", "Paneer Tikka","Chicken Biriyani","Mutton Rogan Josh"];
+
+            // Populate the select element with options
+            var selectElement = document.getElementById("options");
+            options.forEach(function (option, index) {
+                var optionElement = document.createElement("option");
+                optionElement.value = index + 1;
+                optionElement.textContent = option;
+                selectElement.appendChild(optionElement);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<style>
+     body {
+         background-image: url('https://s.inyourpocket.com/gallery/abu-dhabi/2020/01/268937.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+</head>
+<body>
+    <h1>Welcome to Our Restaurant</h1>
+    
+    <h2>Today's Special Dish:</h2>
+    <p id="specialDish"></p>
+    
+    <h2>Menu:</h2>
+    <p id="menu"></p>
+
+    <h2>Discounts:</h2>
+    <p id="discounts"></p>
+
+    <script>
+        // Your JavaScript code for fetching data from the backend and updating the HTML
+        document.addEventListener('DOMContentLoaded', function () {
+            // Fetch today's special dish
+            fetch('/api/today_special')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('specialDish').innerText = data.special_dish;
+                });
+
+            // Fetch menu items
+            fetch('/menu')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('menu').innerHTML = data;
+                });
+
+            // Fetch discounts
+            fetch('/discounts')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('discounts').innerHTML = data;
+                });
+        });
+
+          // Fetch user_choice
+          fetch('/uer_choice')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('user_choice').innerHTML = data;
+                });
+        
+
+        // ... (Remaining JavaScript code)
+    </script>
+</body>
+</html>
